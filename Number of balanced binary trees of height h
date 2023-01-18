@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+long long N = 1000000007;
+long findBBT(int h){
+    if(h==0 || h==1){
+        return 1;
+    }
+    long long n = findBBT(h - 1);
+    long long num = (n * n) % N + (2 *n*findBBT(h-2))%N;
+
+    return num%N;
+}
+int main(){
+    
+   int t;cin>>t;
+   while(t--){
+       int h;
+       cin>>h;
+       cout<<findBBT(h)<<endl;
+   }
+    return 0;
+}
