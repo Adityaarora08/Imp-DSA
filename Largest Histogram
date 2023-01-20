@@ -1,0 +1,67 @@
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        int n=heights.size();
+        int area=INT_MIN;
+        stack<int> st;
+        // stack<pair<int,int> > st;
+        // vector<int> leftS(n);
+        // vector<int> rightS(n);
+        for(int i=0;i<=n;i++){
+            while(!st.empty() && (i==n || heights[st.top()]>=heights[i])){
+                int curr=heights[st.top()];
+                st.pop();
+                int width;
+                if(st.empty())width=i;
+                else width=i-st.top()-1;
+                area=max(area,curr*width);
+            }
+            st.push(i);
+        }
+        /*
+        for(int i=0;i<n;i++){
+            // if(!st.empty()){
+                // int count=0;
+                while(!st.empty() && st.top().first>=heights[i]){
+                    // count++;
+                    st.pop();
+                }
+                if(!st.empty()){
+                    leftS[i]=st.top().second+1;
+                }else{
+                    // leftS[i]=i-count;
+                    leftS[i]=0;
+                }
+            // }else{
+            //     leftS[i]=i;
+            // }
+            st.push({heights[i],i});
+        }
+        while(!st.empty())st.pop();
+        for(int i=n-1;i>=0;i--){
+            // if(!st.empty()){
+                // int count=0;
+                while(!st.empty() && st.top().first>=heights[i]){
+                    // count++;
+                    st.pop();
+                }
+                if(!st.empty()){
+                    rightS[i]=st.top().second-1;
+                }else{
+                    // rightS[i]=i+count;
+                    rightS[i]=n-1;
+                }
+            // }else{
+                // rightS[i]=i;
+            // }
+            st.push({heights[i],i});
+        }
+        
+        for(int i=0;i<n;i++){
+            int currArea= (rightS[i]-leftS[i]+1)*heights[i];
+            area=max(area,currArea);
+        }
+        */
+        return area;
+    }
+};
