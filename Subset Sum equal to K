@@ -1,0 +1,48 @@
+#include <bits/stdc++.h> 
+//Memoization
+bool f(int index,int k,vector<int>& arr,int n,vector<vector<int>> &dp){
+    if(k==0)return true;
+    if(index==n-1)return arr[index]==k;
+    if( dp[index][k]!=-1){
+        if(dp[index][k]==1)return true;
+        else return false;
+    }
+    bool with=false;
+    bool without=f(index+1,k,arr,n,dp);
+    if(arr[index]<=k){
+        with=f(index+1,k-arr[index],arr,n,dp);
+    }
+    if(with|without == true){
+        dp[index][k]=1;
+    }else{
+        dp[index][k]=0;
+    }
+    return with||without;
+}
+//Tabulation
+bool subsetSumToK(int n, int k, vector<int> &arr) {
+    // vector<vector<bool>> dp(n,vector<bool> (k+1));
+    vector<bool> dp(k+1,false),temp(k+1,false);
+    // return f(0,k,arr,n,dp);
+    // for(int i=0;i<n;i++){
+    //     dp[i][0]=true;
+    // }
+    // dp[0][arr[0]]=true;
+    // for(int i=0;i<n;i++){
+    //     dp[i][0]=true;
+    // }
+    dp[0]=temp[0]=true;
+    dp[arr[0]]=true;
+    for(int i=1;i<n;i++){
+        for(int target=1;target<=k;target++){
+
+            bool with=false;
+            if(arr[i]<=target)with=dp[target-arr[i]];
+            bool without=dp[target];
+            temp[target]=with|without;
+            // if(dp[i][target]=true)return true;
+        }
+        dp=temp;
+    }
+    return dp[k];
+}
