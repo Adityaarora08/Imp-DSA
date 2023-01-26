@@ -1,31 +1,45 @@
 class Solution {
 public:
-    bool f(int i,vector<int> & nums,int target,vector<vector<int>> &dp){
-        if(target==0){
-            return true;
-        }
-        if(i>=nums.size()-1)return nums[i]==target;
-        bool take=false;
-        if(dp[i][target]!=-1){
-            if(dp[i][target]==1)return true;
-            else return false;
-        }
-        if(nums[i]<=target)take= f(i+1,nums,target-nums[i],dp);
-        bool notTake=f(i+1,nums,target,dp);
-        if(take|notTake==true){
-            dp[i][target]=1;
-        }else{
-            dp[i][target]=0;
-        }
-        return take|notTake;
-    }
+    // bool f(int i,vector<int> & nums,int target,vector<vector<int>> &dp){
+    //     if(target==0){
+    //         return true;
+    //     }
+    //     if(i>=nums.size()-1)return nums[i]==target;
+    //     bool take=false;
+    //     if(dp[i][target]!=-1){
+    //         if(dp[i][target]==1)return true;
+    //         else return false;
+    //     }
+    //     if(nums[i]<=target)take= f(i+1,nums,target-nums[i],dp);
+    //     bool notTake=f(i+1,nums,target,dp);
+    //     if(take|notTake==true){
+    //         dp[i][target]=1;
+    //     }else{
+    //         dp[i][target]=0;
+    //     }
+    //     return take|notTake;
+    // }
     bool canPartition(vector<int>& nums) {
         int sum=0;
         for(int i=0;i<nums.size();i++)sum+=nums[i];
         if(sum%2>0)return false;
         // int currSum=sum;
         sum/=2;
-        vector<vector<int>> dp(nums.size(),vector<int> (sum+1,-1));
-        return f(0,nums,sum,dp);
+        // vector<vector<int>> dp(nums.size(),vector<int> (sum+1,-1));
+        // return f(0,nums,sum,dp);
+        vector<vector<bool>> dp(nums.size(),vector<bool> (sum+1,false));
+        for(int i=0;i<nums.size();i++){
+            dp[i][0]=true;
+        }
+        if(nums[0]<=sum)dp[0][nums[0]]=true;
+        for(int i=1;i<nums.size();i++){
+            for(int target=1;target<=sum;target++){
+                bool take=false,notTake=dp[i-1][target];
+                if(nums[i]<=target)take=dp[i-1][target-nums[i]];
+                dp[i][target]=take||notTake;
+            }
+        }
+        return dp[nums.size()-1][sum];
+        
     }
 };
