@@ -1,0 +1,47 @@
+#include <bits/stdc++.h> 
+int f(int i,int target,vector<int> &weight, vector<int> &value,vector<vector<int>> &dp){
+	if(i==0){
+		if(weight[0]<=target){
+			return value[0];
+		}
+		else return 0;
+	}
+	if(dp[i][target]!=-1)return dp[i][target];
+	int take=INT_MIN,notTake=f(i-1,target,weight,value,dp);
+	if(weight[i]<=target)take=f(i-1,target-weight[i],weight,value,dp)+value[i];
+	return dp[i][target]=max(take,notTake);
+}
+/*
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+	// Write your code here
+	vector<vector<int>> dp(n,vector<int>(maxWeight+1,0));
+	// return f(n-1,maxWeight,weight,value,dp);
+	for(int i=weight[0];i<=maxWeight;i++)dp[0][i]=value[0];
+	for(int i=1;i<n;i++){
+		for(int target=0;target<=maxWeight;target++){
+	        int take=INT_MIN,notTake=dp[i-1][target];
+	        if(weight[i]<=target)take=dp[i-1][target-weight[i]]+value[i];
+	        dp[i][target]=max(take,notTake);
+		}
+	}
+	return dp[n-1][maxWeight];
+}
+*/
+//Space optimization
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+	// Write your code here
+	vector<int> dp(maxWeight+1,0),temp(maxWeight+1,0);
+	// return f(n-1,maxWeight,weight,value,dp);
+	for(int i=weight[0];i<=maxWeight;i++)dp[i]=value[0];
+	for(int i=1;i<n;i++){
+		for(int target=0;target<=maxWeight;target++){
+	        int take=INT_MIN,notTake=dp[target];
+	        if(weight[i]<=target)take=dp[target-weight[i]]+value[i];
+	        temp[target]=max(take,notTake);
+		}
+		dp=temp;
+	}
+	return dp[maxWeight];
+}
