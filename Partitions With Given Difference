@@ -1,0 +1,60 @@
+#include <bits/stdc++.h> 
+//Memoization
+int f(int i,int target,vector<int>&arr,vector<vector<int>>& dp){
+    // if(target==0)return 1;
+    if(i==0){
+        if(target==0 && arr[i]==0)return 2;
+        if(target==0 || arr[i]==target)return 1;
+        else return 0;
+    }
+    if(dp[i][target]!=-1)return dp[i][target];
+    int notTake=f(i-1,target,arr,dp)%1000000007,take=0;
+    if(arr[i]<=target)take=f(i-1,target-arr[i],arr,dp)%1000000007;
+    return dp[i][target]=(take+notTake)%1000000007;
+}
+//Tabulation
+/*
+int countPartitions(int n, int d, vector<int> &arr) {
+    // Write your code here.
+    int total=0;
+    for(int i=0;i<n;i++)total+=arr[i];
+    if(total-d<0 || (total-d)%2)return 0;
+    int s2=(total-d)/2;
+    vector<vector<int>> dp(n,vector<int>(s2+1,0));
+    // return f(n-1,s2,arr,dp)%1000000007;
+    // for(int i=0;i<n;i++)dp[i][0]=1;
+    if(arr[0]==0)dp[0][0]=2;
+    else dp[0][0]=1;
+    if(arr[0]!=0 &&arr[0]<=s2)dp[0][arr[0]]=1;
+    for(int i=1;i<n;i++){
+        for(int target=0;target<=s2;target++){
+            int notTake=dp[i-1][target],take=0;
+            if(arr[i]<=target)take=dp[i-1][target-arr[i]];
+            dp[i][target]=(take+notTake)%1000000007;
+        }
+    }
+    return dp[n-1][s2];
+}
+*/
+//Space Optimization
+int countPartitions(int n, int d, vector<int> &arr) {
+    int total=0;
+    for(int i=0;i<n;i++)total+=arr[i];
+    if(total-d<0 || (total-d)%2)return 0;
+    int s2=(total-d)/2;
+    // vector<vector<int>> dp(n,vector<int>(s2+1,0));
+    vector<int> dp(s2+1,0),temp(s2+1);
+    if(arr[0]==0)dp[0]=2;
+    else dp[0]=1;
+    if(arr[0]!=0 &&arr[0]<=s2)dp[arr[0]]=1;
+    for(int i=1;i<n;i++){
+        for(int target=0;target<=s2;target++){
+            int notTake=dp[target],take=0;
+            if(arr[i]<=target)take=dp[target-arr[i]];
+            temp[target]=(take+notTake)%1000000007;
+        }
+        dp=temp;
+    }
+    return dp[s2];
+}
+
