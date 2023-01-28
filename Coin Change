@@ -1,0 +1,73 @@
+class Solution {
+public:
+int coin(int i,vector<int>& coins, int amount,vector<vector<int>> &dp){
+    if(i==0){
+        if(amount%coins[i]==0)return amount/coins[i];
+        else
+        return 1e8;
+    }
+    if(dp[i][amount]!=-1)return dp[i][amount];
+    int take=1e8;
+    int notTake=coin(i-1,coins,amount,dp);
+    if(coins[i]<=amount ){
+    // if(amount/coins[i]>1)
+    take=1+coin(i,coins,amount-coins[i],dp);
+    // else
+    // take=1+coin(i+1,coins,amount-coins[i]);
+    }
+    
+    return dp[i][amount]=min(take,notTake);
+
+}
+//Tabulation
+/*
+    int coinChange(vector<int>& coins, int amount) {
+        int n=coins.size();
+        vector<vector<int>> dp(n,vector<int>(amount+1,0));
+        // if(coin(n-1,coins,amount,dp)!=1e8)
+        // return coin(n-1,coins,amount,dp);
+        // return -1;
+        for(int i=0;i<=amount;i++){
+            if(i%coins[0]==0)dp[0][i]=i/coins[0];
+            else dp[0][i]=1e8;
+        }
+        for(int i=1;i<n;i++){
+            for(int j=0;j<=amount;j++){
+                int take=1e8;
+                int notTake=dp[i-1][j];
+                if(coins[i]<=j ){
+                take=1+dp[i][j-coins[i]];
+                }
+                dp[i][j]=min(take,notTake);
+            }
+        }
+        if( dp[n-1][amount]!=1e8)
+        return  dp[n-1][amount];
+        return -1;
+     
+    }
+*/
+int coinChange(vector<int>& coins, int amount) {
+        int n=coins.size();
+        vector<int> dp(amount+1,0),temp(amount+1,0);
+        for(int i=0;i<=amount;i++){
+            if(i%coins[0]==0)dp[i]=i/coins[0];
+            else dp[i]=1e8;
+        }
+        for(int i=1;i<n;i++){
+            for(int j=0;j<=amount;j++){
+                int take=1e8;
+                int notTake=dp[j];
+                if(coins[i]<=j ){
+                take=1+temp[j-coins[i]];
+                }
+                temp[j]=min(take,notTake);
+            }
+            dp=temp;
+        }
+        if( dp[amount]!=1e8)
+        return  dp[amount];
+        return -1;
+     
+    }
+};
