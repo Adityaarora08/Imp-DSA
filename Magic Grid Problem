@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+int f(int i,int j,vector<vector<int>> &grid,int r,int c,vector<vector<int>> &dp){
+    if(i==r-1&&j==c-1){
+        return 1;
+    }
+    if(dp[i][j]!=-1)return dp[i][j];
+    int take=INT_MAX,notTake=INT_MAX;
+    if(i<r-1)take=f(i+1,j,grid,r,c,dp);
+    if(j<c-1)notTake=f(i,j+1,grid,r,c,dp);
+    int output=min(take,notTake)-grid[i][j];
+    return dp[i][j]=output <= 0 ? 1 : output;
+}
+int main(){
+    int t;cin>>t;
+    while(t--){
+        int r,c;cin>>r>>c;
+        vector<vector<int>> grid(r,vector<int>(c));
+        vector<vector<int>> dp(r,vector<int>(c,-1));
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++)cin>>grid[i][j];
+        }
+        cout<<f(0,0,grid,r,c,dp)<<endl;
+    }
+    return 0;
+}
+        
