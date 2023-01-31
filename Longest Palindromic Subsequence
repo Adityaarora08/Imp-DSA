@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int longestPalindromeSubseq(string s) {
+        string s2="";
+        int n=s.length();
+        for(int i=n-1;i>=0;i--){
+            s2+=s[i];
+        }
+        // cout<<s2;
+        // vector<vector<int>> dp(n+1,vector<int> (n+1,0));
+        vector<int> dp(n+1,0),temp(n+1,0);
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=n;j++){
+                if(s[i-1]==s2[j-1]){
+                    temp[j]=1+dp[j-1];
+                }else temp[j]=max(dp[j],temp[j-1]);
+            }
+            dp=temp;
+        }
+        return dp[n];
+    }
+};
