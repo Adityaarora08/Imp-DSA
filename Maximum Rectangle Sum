@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+int kadanes(vector<int> &dp){
+    int continous=0,sum=INT_MIN,maxi=INT_MIN;
+    for(int i=0;i<dp.size();i++){
+        continous+=dp[i];
+        maxi=max(maxi,dp[i]);
+        sum = max(sum, continous);
+        if(continous<0)continous=0;
+    }
+   if(maxi<0)
+   return maxi;
+   else
+     return sum;
+}
+int main(){
+    int t;cin>>t;
+    while(t--){
+        int n,m,maxSum=0;cin>>n>>m;
+        vector<vector<int>> matrix(n,vector<int>(m));
+        for(int i=0;i<n;i++)for(int j=0;j<m;j++)cin>>matrix[i][j];
+       for(int l=0;l<m;l++){
+           vector<int> dp(n,0);
+           for(int r=l;r<m;r++){
+               for(int i=0;i<n;i++){
+                   dp[i]+=matrix[i][r];
+               }
+               maxSum=max(maxSum,kadanes(dp));
+           }
+       }
+        cout<<maxSum<<endl;
+    }
+    return 0;
+}
