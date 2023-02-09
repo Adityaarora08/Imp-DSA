@@ -1,3 +1,5 @@
+//For one number greater than 4*10^4 take input as string 
+
 #include<bits/stdc++.h>
 using namespace std;
 int gcd(int a,int b){
