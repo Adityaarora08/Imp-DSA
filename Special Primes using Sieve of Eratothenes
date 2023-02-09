@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    
+    // write your code here
+    int n;cin>>n;
+    vector<int> arr(n+1,1);
+    vector<int> primes;
+    arr[0]=0,arr[1]=0;
+    for(int i=2;i<=n;i++){
+        if(arr[i]==1){
+            primes.push_back(i);
+            for (int j = 2; i * j <= n; j ++) {
+              arr[i * j] = 0;
+            }
+        }
+    }
+   int count = 0;
+    for (int j = 0; j < primes.size(); j++) {
+      long long a = primes[j] + primes[j + 1] + 1;
+       if (a <= n) {
+         if (arr[a] == 1) {
+           count++;
+         }
+        }
+    }
+    cout<<count<<endl;
+    return 0;
+}
