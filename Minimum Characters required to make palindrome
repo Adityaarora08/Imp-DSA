@@ -1,0 +1,43 @@
+void lpsCal(vector<int> &lps,int n,string s){
+    int i=1,j=0;
+    while(i<n){
+        if(s[i]==s[j]){
+            lps[i]=j+1;
+            i++;
+            j++;
+        }else{
+            if(j!=0){
+                j=lps[j-1];
+            }else{
+                lps[i]=0;i++;
+            }
+        }
+    }
+}
+
+int Solution::solve(string A) {
+    // int i=0,j=A.length()-1;
+    string revA=A;
+    reverse(revA.begin(),revA.end());
+    revA=A+"$"+revA;
+    int n=revA.length();
+    vector<int> lps(n);
+    lpsCal(lps,n,revA);
+    // int maxi=n;
+    // while(j>=0){
+    //     // int k=i;
+    //     if(A[i]==A[j]){
+    //         int k=i,l=j;
+    //         while(k<l&&A[k]==A[l]){
+    //             k++;
+    //             l--;
+    //         }
+    //         if(k>=l){
+    //             maxi=min(maxi,n-j-1);
+    //         }
+    //     }
+    //     j--;
+    // }
+    return (A.length()-lps.back());
+}
+//abcaaabcaabds
