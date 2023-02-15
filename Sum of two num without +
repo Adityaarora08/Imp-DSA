@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int getSum(int a, int b) {
+         int carry;
+        while (b!=0){
+            carry = a&b;
+            a = a^b;
+            b = (unsigned int)carry<<1;
+        }
+        return a;
+        // vector<int> num1,num2;
+        //  while(a){
+        //     num1.push_back(a%10);
+        //     a=a/10;
+        // }
+        // while(b){
+        //     num2.push_back(b%10);
+        //     b=b/10;
+        // }
+        // vector<int> ans;
+        // if(num1.size()>num2.size()){
+        //     int i=0,j=num2.size()-1;
+        //     while(i<(num1.size()-j)){
+        //         ans.push_back(num1[i]);
+        //         i++;
+        //     }
+        //     while(i<num1.size() && j<num2.size()){
+
+        //     }
+        // }
+    }
+};
