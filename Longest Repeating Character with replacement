@@ -1,0 +1,65 @@
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        int maxi=0,maxlen=0;
+        int start=0;
+        vector<int> char_count(26,0);
+        for(int end=0;end<s.length();end++){
+            char_count[s[end]-'A']++;
+            maxi=max(maxi,char_count[s[end]-'A']);
+            while(end-start-maxi+1>k){
+                char_count[s[start]-'A']--;
+                start++;
+            }
+            maxlen=max(maxlen,(end-start+1));
+        }
+        return maxlen;
+        // for(int i=0;i<s.length();i++){
+        //     int a=k,j=i+1;
+        //     while((a || s[i]==s[j]) && j<s.length() ){
+        //         if(s[i]==s[j]){
+        //             j++;
+        //         }else{
+        //             a--;
+        //             j++;
+        //         }
+        //     }
+        //     maxi=max(maxi,(j-i));
+        // }
+        // for(int i=s.length()-1;i>=0;i--){
+        //     int a=k,j=i-1;
+        //     while(j>=0 &&(a || s[i]==s[j]) ){
+        //         if(s[i]==s[j]){
+        //             j--;
+        //         }else{
+        //             a--;
+        //             j--;
+        //         }
+        //     }
+        //     maxi=max(maxi,(i-j));
+        // }
+        // for(int i=0;i<s.length();i++){
+        //     int a=k,j=i+1,k=i-1;
+        //     while((j<s.length() || k>=0) && (a || s[i]==s[j] || s[k]==s[i])){
+        //         if(j<s.length()){
+        //         if(s[i]==s[j]){
+        //             j++;
+        //         }else if(a>0){
+        //             a--;
+        //             j++;
+        //         }
+        //         }
+        //         if(k>=0){
+        //         if(s[i]==s[k]){
+        //             k--;
+        //         }else if(a>0){
+        //             a--;
+        //             k--;
+        //         }
+        //         }
+        //     }
+        //     maxi=max(maxi,(j-k));
+        // }
+        // return maxi;
+    }
+};
