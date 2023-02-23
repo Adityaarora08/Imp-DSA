@@ -1,0 +1,23 @@
+class Solution {
+public:
+    
+    vector<string> letterCombinations(string digits) {
+        string letters[10]={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        vector<string> ans;
+        ans.push_back("");
+        for(int i=0;i<digits.length();i++){
+            int dig = int(digits[i]-'0');
+            vector<string> temp;
+            for(int k=0;k<ans.size();k++){
+                    for(int j=0;j<letters[dig].length();j++){
+                    string curr= ans[k]+letters[dig][j];
+                    temp.push_back(curr);
+                    }
+            }
+                ans=temp;        
+        }
+        vector<string> temp;
+        if(ans.size()==1 && ans[0]=="")return temp;
+        return ans;
+    }
+};
