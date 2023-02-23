@@ -1,0 +1,67 @@
+//Z algorithm gets accepted, kmp gives TLE
+class Solution {
+public:
+    void lcsCal(vector<int> &lps,string s){
+        int i=0,j=1;
+        while(i<s.length()){
+            if(s[i]==s[j]){
+                lps[i]=j+1;
+                i++;
+                j++;
+            }else{
+                if(j!=0){
+                    j=lps[j-1];
+                }else{
+                    lps[i]=0;
+                    i++;
+                }
+            }
+        }
+    }
+    void build(vector<int> &Z,string s,string p,int n,int m){
+    string str=p+"&"+s;
+    int j=0;
+    for(int i=1;i<str.length();i++){
+        if(str[i]==str[j]);
+        int k=i;
+        while(str[j]==str[k]){
+            k++;
+            j++;
+        }
+        Z[i]=k-i;
+        j=0;
+    }
+}
+    int strStr(string s, string p) {
+    int n=s.size(),m=p.size();
+    vector<int> Z(n+m+1,0);
+    build(Z,s,p,n,m);
+    for (int i = 0; i < Z.size(); i++)
+    // cout<<Z[i]<<" ";
+      if (Z[i] == p.length()) {
+        return i-p.length()-1;
+      }
+
+        // vector<int> lps(p.length(),0);
+        // lcsCal(lps,p);
+        // int i=0,j=0;
+        // int maxi=INT_MIN;
+        // while(i<s.length()){
+        //     if(s[i]==p[j]){
+        //         maxi=max(maxi,j+1);
+        //         if(maxi==p.length()){
+        //             return i-p.length()+1;
+        //         }
+        //         i++;
+        //         j++;
+        //     }else{
+        //         if(j!=0){
+        //             j=lps[j-1];
+        //         }else{
+        //             i++;
+        //         }
+        //     }
+        // }
+        return -1;
+    }
+};
