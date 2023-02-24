@@ -1,0 +1,82 @@
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+         if (num1 == "0" || num2 == "0") return "0";
+        string ans="";int carry=0;
+        vector<int> res(num1.length()+num2.length(),0);
+        for(int i=num1.length()-1;i>=0;i--){
+            for(int j=num2.length()-1;j>=0;j--){
+                res[i+j+1]+=int(num1[i]-'0')*int(num2[j]-'0');
+                res[i+j]+=res[i+j+1]/10;
+                res[i+j+1]=res[i+j+1]%10;
+                // num+=carry;
+                // if(num>9){
+                //     res[i+j]=num/10;
+                // }else{
+                //     carry=0;
+                // }
+                // res[i+j]+=num%10;
+                // if(res[i+j]>9){
+                //     res[i+j+1]=res[i+j]/10;
+                //     res[i+j]=res[i+j]%10;
+                // }
+            }
+        }
+        int i=0;
+        while(res[i]==0)i++;
+        while(i<res.size()){
+                ans+=to_string(res[i]);
+            i++;
+        }
+        // vector<int> ans(max(num1.length()+num2.length()));
+        // string ans="";
+        // int i=num1.length()-1,j=num2.length()-1;
+        // int k;
+        // reverse(num1.begin(),num1.end());
+        // reverse(num2.begin(),num2.end());
+        // while(i<num1.length()){
+        //     // vector<int> currNew;
+        //     string currNew="";
+        //     int carry=0;
+        //     for(int j=0;j<num2.length();j++){
+        //         int a=int(num1[i]-'0'),b=int(num2[j]-'0');
+        //         int curr=a*b;
+        //         curr+=carry;
+        //         if(curr>9){
+        //             carry=curr/10;
+        //         }else{
+        //             carry=0;
+        //         }
+        //         currNew+=to_string(curr%10);
+        //     }
+        //     if(carry)currNew+=to_string(carry);
+        //     carry=0;
+        //     string res="";
+        //     for(int q=0;q<i;q++)res+=ans[q];
+        //     for(int l=0;l<currNew.size();l++){
+        //         int num=int(currNew[l])+carry;
+        //         if(ans.length()>=i+l){
+        //             num+=int(ans[i+l]);
+        //         }
+        //         if(num>9){
+        //             carry=num/10;
+        //         }
+        //         res+=to_string(num%10);
+        //     }
+        //     for(int q=i+currNew.size();q<ans.length();q++){
+        //         int num=int(ans[q])+carry;
+        //         if(num>9){
+        //             carry=num/10;
+        //             res+=to_string(num%10);
+        //         }else{
+        //             res+=to_string(num);
+        //             carry=0;
+        //         }
+        //     } 
+        //     ans=res;
+        //     i++;
+        // }
+        // reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
