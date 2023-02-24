@@ -1,0 +1,47 @@
+class Solution {
+public:
+    void permute(int idx,vector<int>& nums,vector<bool> vis,vector<int> ds,set<vector<int>> &st){
+        if(ds.size()==nums.size()){
+           st.insert(ds);
+            return;
+        }
+        // if(!vis[idx]){
+        //     ds.push_back(nums[idx]);
+        //     vis[idx]=true;
+        // }
+        for(int i=0;i<nums.size();i++){
+            if(!vis[i]){
+                vis[i]=true;
+                ds.push_back(nums[i]);
+                permute(i,nums,vis,ds,st);
+                vis[i]=false;
+                ds.pop_back();
+            }
+        }
+    }
+    void recursion(vector<int> nums,int i,int j,vector<vector<int>> &ans){
+        if(i==j-1){
+            ans.push_back(nums);
+            return;
+        }
+        for(int k=i;k<j;k++){
+            if(i!=k&& nums[i]==nums[k])continue;
+            swap(nums[i],nums[k]);
+            recursion(nums,i+1,j,ans);
+            // swap(nums[i],nums[k]);
+        }
+    }
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        // set<vector<int>> st;
+        vector<vector<int>> ans;
+        // vector<bool> vis(nums.size(),false);
+        // vector<int> ds;
+        // permute(0,nums,vis,ds,st);
+        // for(auto it:st){
+        //     ans.push_back(it);
+        // }
+        sort(nums.begin(),nums.end());
+        recursion(nums,0,nums.size(),ans);
+        return ans;
+    }
+};
