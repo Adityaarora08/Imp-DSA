@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void permute(int i,int k,int n,vector<vector<int>> &st,vector<int> ds){
+        if(i>n)return;
+        if(ds.size()==k){
+            st.push_back(ds);return;
+        }
+        for(int idx=i;idx<n;idx++){
+            ds.push_back(idx+1);
+            permute(idx+1,k,n,st,ds);
+            ds.pop_back();
+        }
+        // permute(i+1,k,n,st,ds);
+    }
+    vector<vector<int>> combine(int n, int k) {
+        vector<int> ds;
+        // set<vector<int>> st;
+        // for(int i=0;i<n;i++){
+        //     arr[i]=i+1;
+        // }
+        vector<vector<int>> st;
+        permute(0,k,n,st,ds);
+        
+        // for(auto it:st){
+        //     ans.push_back(it);
+        // }
+        return st;
+
+    }
+};
