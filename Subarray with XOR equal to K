@@ -1,0 +1,16 @@
+//Gives wrong answer on gfg but correct on interview bit :/
+int Solution::solve(vector<int> &A, int K) {
+    int count=0,currXor=0;
+        map<int,int> mp;
+        mp[0]++;
+        for(int i=0;i<A.size();i++){
+            currXor=(currXor^A[i]);
+            // if(currXor==K)count++;
+            
+            if(mp.find(currXor^K)!=mp.end()){
+                count+=mp[currXor^K];
+            }
+            mp[currXor]+=1;
+        }
+        return count;
+}
