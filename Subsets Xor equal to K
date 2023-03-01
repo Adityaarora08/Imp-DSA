@@ -1,0 +1,54 @@
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution{
+public:
+    int subs(int i,vector<int> arr,int n,int currXor,int K,vector<vector<int>> &dp){
+        if(i>=n){
+            if(currXor==K){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+        if(dp[i][currXor]!=-1)return dp[i][currXor];
+        int take=subs(i+1,arr,n,currXor^arr[i],K,dp);
+        int notTake=subs(i+1,arr,n,currXor,K,dp);
+        return dp[i][currXor]=take+notTake;
+    }
+    int subsetXOR(vector<int> arr, int N, int K) {
+        // code here
+        int count=0,currXor=0;
+        // map<int,int> mp;
+        // mp[0]++;
+        vector<vector<int>> dp(N,vector<int> (200,-1));
+        return subs(0,arr,N,0,K,dp);
+    }
+};
+
+//{ Driver Code Starts.
+int main() 
+{ 
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int N;
+        cin>>N;
+        int K;
+        cin>>K;
+        vector<int> v;
+        for(int i = 0;i<N;i++)
+        {
+            int x;
+            cin>>x;
+            v.push_back(x);
+        }    
+        Solution ob;
+        cout << ob.subsetXOR(v,N,K) << endl;
+    }
+    return 0; 
+}
+// } Driver Code Ends
