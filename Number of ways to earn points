@@ -1,0 +1,42 @@
+class Solution {
+public:
+     vector<vector<int>> q;
+     int n,mod=(int)1e9+7;
+     int dp[52][1002];
+    int ways(int idx,int target){
+        if(target<0){
+            return 0;
+        }
+        // if(idx>=types.size())return 0;
+        int MOD=1e9+7;
+        if(idx==q.size()){
+            if(target==0){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+        if(dp[idx][target]!=-1)return dp[idx][target];
+        int count=q[idx][0];
+        long long wayss=0;
+        for(int i=0;i<=count;i++){
+            wayss+=ways(idx+1,target-(i*q[idx][1]));
+            wayss%=MOD;
+        }
+        return dp[idx][target]=wayss;
+    }
+    int waysToReachTarget(int target, vector<vector<int>>& types) {
+        // vector<vector<int>> dp(types.size()+1,vector<int>(target+1,-1));
+        n=types.size();
+        q=types;
+        
+        for(int i=0;i<=n;i++)
+        {
+             for(int j=0;j<=target;j++)
+                  dp[i][j]=-1;
+        }
+        return ways(0,target);
+        
+        
+    }
+};
