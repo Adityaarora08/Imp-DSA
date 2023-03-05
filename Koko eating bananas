@@ -1,0 +1,33 @@
+//BANANAAA
+class Solution {
+public:
+    long long checkHrs(int rate,vector<int>& piles){
+        long long hrs=0;
+        for(int i=0;i<piles.size();i++){
+            if(piles[i]<=rate){
+                hrs++;
+            }else{
+                hrs+=(piles[i]/rate);
+                if(piles[i]%rate!=0){
+                    hrs+=1;
+                }
+            }
+        }
+        return hrs;
+    }
+    int minEatingSpeed(vector<int>& piles, int h) {
+        sort(piles.begin(),piles.end());
+        long long l=1,high=piles[piles.size()-1];
+        int ans=INT_MAX;
+        while(l<=high){
+            long long mid=l+(high-l)/2;
+            long long hors=checkHrs(mid,piles);
+            if(hors>h){
+                l=mid+1;
+            }else{
+                high=mid-1;
+            }
+        }
+        return l;
+    }
+};
