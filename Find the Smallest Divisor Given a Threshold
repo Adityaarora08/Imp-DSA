@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int smallestDivisor(vector<int>& nums, int threshold) {
+        int l=1,h=0,ans=-1;
+        for(int i=0;i<nums.size();i++)h=max(h,nums[i]);
+        while(l<=h){
+            int mid=l+(h-l)/2;
+            int divisionRemainder=0;
+            for(int i=0;i<nums.size();i++){
+                divisionRemainder+=(nums[i]/mid);
+                if(nums[i]%mid!=0){
+                    divisionRemainder++;
+                }
+            }
+            if(divisionRemainder<=threshold){
+                ans=mid;
+            }
+            if(divisionRemainder>threshold){
+                l=mid+1;
+            }else{
+                h=mid-1;
+            }
+        }
+        return ans;
+    }
+};
