@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool check(int sum,int k,vector<int> nums){
+        int currSum=0,cnt=1;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]>sum)return false;
+            if(currSum+nums[i]>sum){
+                cnt++;
+                currSum=nums[i];
+            }else{
+                currSum+=nums[i];
+            }
+        }
+        if(cnt>k)return false;
+        return true;
+    }
+    int splitArray(vector<int>& nums, int k) {
+        int l=nums[0],h=0;
+        for(int i=0;i<nums.size();i++){
+            h+=nums[i];
+            l=min(l,nums[i]);
+        }
+        while(l<=h){
+            int mid=(l+h)>>1;
+            if(check(mid,k,nums)){
+                h=mid-1;
+            }else{
+                l=mid+1;
+            }
+        }
+        return l;
+    }
+};
