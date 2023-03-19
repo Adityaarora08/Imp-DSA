@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+bool check(int idx,vector<int> &c,int num,vector<vector<int>> &dp){
+    if(idx==0){
+        if(num==0 || num-c[0]==0)return true;
+        else return false;
+    }
+    if(dp[idx][num]!=-1)return dp[idx][num];
+    bool take=false,notTake=check(idx-1,c,num,dp);
+    if(c[idx]<=num)take=check(idx-1,c,num-c[idx],dp);
+    return dp[idx][num]=take|notTake;
+}
+int main()
+{
+    int t;cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        vector<int> c(n);
+        for(int i=0;i<n;i++){
+               cin>>c[i];
+        }
+        sort(c.begin(),c.end());
+        bool flag=true;
+        if(c[0]!=1)cout<<"NO"<<endl;
+        else{
+            vector<vector<int>> dp(n,vector<int> (c[n-1]+1,-1));
+            for(int i=1;i<n;i++){
+            if(!check(i-1,c,c[i],dp)){
+                cout<<"NO"<<endl;
+                flag=false;
+                break;
+            }
+        }
+        if(flag){
+            cout<<"YES"<<endl;
+        }
+        }
+        
+    }
+
+    return 0;
+}
