@@ -1,0 +1,48 @@
+class Solution {
+public:
+    static bool cmp(pair<char,int>&a ,pair<char,int>&b){
+        return a.second > b.second;
+    }
+
+    string frequencySort(string s) {
+        unordered_map<char,int>mp;
+        string ans;
+
+        for(auto i:s) mp[i]++;
+        vector<pair<char,int>>v(mp.begin(),mp.end());
+        sort(v.begin(),v.end(),cmp);
+
+        for(int i=0;i<v.size();i++){
+            while(v[i].second--)
+            ans.push_back(v[i].first);
+        }
+
+        return ans;
+    }
+};
+// class Solution {
+// public:
+//     bool static comparator(pair<char,int> a,pair<char,int> b){
+//         return a.second>b.second;
+//     }
+//     string frequencySort(string s) {
+//         vector<pair<char,int>> pairs;
+//         unordered_map<char,int> mp;
+//         for(int i=0;i<s.length();i++){
+//             mp[s[i]]++;
+//         }
+//         for(int i=0;i<s.length();i++){
+//             pairs.push_back({s[i],mp[s[i]]});
+//         }
+//         sort(pairs.begin(),pairs.end(),comparator);
+//         set<char> st;
+//         string ans="";
+//         for(int i=0;i<s.length();i++){
+//             if(st.find(pairs[i].first)==st.end()){
+//                 st.insert(pairs[i].first);
+//                 for(int j=0;j<pairs[i].second;j++)ans+=pairs[i].first;
+//             }
+//         }
+//         return ans;
+//     }
+// };
