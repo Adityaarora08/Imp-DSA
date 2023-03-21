@@ -1,0 +1,24 @@
+class Solution {
+public:
+bool check(long long time,vector<int>& ranks, int cars){
+    long long curr=0,num=0;
+    for(int i=0;i<ranks.size();i++){
+        num+=sqrt(time/ranks[i]);
+    }
+    if(cars>num)return false;
+    return true;
+}
+    long long repairCars(vector<int>& ranks, int cars) {
+        long long a=1e6;
+        long long l=1,h=100*a*a;
+        while(l<=h){
+            long long mid=(l+h)>>1;
+            if(check(mid,ranks,cars)){
+                h=mid-1;
+            }else{
+                l=mid+1;
+            }
+        }
+        return l;
+    }
+};
