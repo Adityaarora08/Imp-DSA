@@ -1,0 +1,50 @@
+class Solution {
+public:
+int beauty(string s,int start,int end){
+        int mini=500,maxi=0;
+        unordered_map<char,int> mp;
+        for(int i=start;i<=end;i++){
+            mp[s[i]]++;
+            maxi=max(maxi,mp[s[i]]);
+            mini=min(mini,mp[s[i]]);
+        }
+        mp.clear();
+        return maxi-mini;
+}
+    int beautySum(string s) {
+    //      int n=s.size(),ans=0,mn=500,mx=0;
+    //     for(int i=0;i<n;i++){
+    //             map<char,int>mp;
+    //         for(int j=i;j<n;j++){
+    //             mp[s[j]]++;
+    //             for(auto& it:mp){
+    //                 mn=min(mn,it.second);
+    //                 mx=max(mx,it.second);
+    //             }
+    //             ans+=(mx-mn);
+    //             mn=500;mx=0;
+    //         }
+    //         mp.clear();
+    //     }
+    // return ans;
+        // string ds="";
+        int ans=0;
+        int mini=500,maxi=0;
+        for(int i=0;i<s.length();i++){
+             map<char,int> mp;
+            for(int j=i;j<s.length();j++){
+                // ans+=beauty(s,i,j);
+                mp[s[j]]++;
+                for(auto &it:mp){
+                    maxi=max(maxi,it.second);
+                    mini=min(mini,it.second);
+                }
+                ans+=(maxi-mini);
+                mini=500,maxi=0;
+            }
+            mp.clear();
+            
+        }
+        return ans;
+    }
+};
