@@ -1,0 +1,94 @@
+//{ Driver Code Starts
+//Initial template for C++
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+//User function template for C++
+
+class Solution
+{
+  public:
+  long long atMostK(string s, int k){
+      map<char,int> mp;long long l=0,h=0,count=0;
+    	while(h<s.length()){
+    	    if(mp.find(s[h])==mp.end())mp[s[h]]=0;
+    	    mp[s[h]]++;
+    	    while(mp.size()>k){
+    	        mp[s[l]]--;
+    	        if(mp[s[l]]==0)mp.erase(s[l]);
+    	        l++;
+    	    }
+    	    count+=h-l+1;
+    	    h++;
+    	}
+    	return count;
+  }
+    long long int substrCount (string s, int k) {
+    	//code here.
+    // 	long long count=0;
+    // 	for(int i=0;i<s.length();i++){
+    // 	    set<char> st;
+    // 	    for(int j=i;j<s.length();j++){
+    // 	        if(st.size()==k){
+    // 	            if(st.find(s[j])!=st.end()){
+    // 	                count++;
+    // 	            }else{
+    // 	                break;
+    // 	            }
+    // 	        }else{
+    // 	            st.insert(s[j]);
+    // 	            if(st.size()==k){
+    // 	            count++;
+    // 	             }
+    // 	        }
+    	        
+    // 	    }
+    // 	}
+    // 	return (atMostK(s, k) - atMostK(s, k - 1));
+    long long h=0,l=0,prefix=0,siz=0;
+    long long count=0;
+    // unordered_map<char,int> mp;
+    vector<long long int> mp(26,0);
+    while(h<s.length()){
+        mp[s[h]-'a']++;
+        if(mp[s[h]-'a']==1){
+            siz++;
+        }
+        if(siz>k){
+            mp[s[l]-'a']--;
+            l++;
+            prefix=0;
+            siz--;
+        }
+        while(mp[s[l]-'a']>1){
+            mp[s[l]-'a']--;
+            l++;
+            prefix++;
+        }
+        if(siz==k){
+            count+=prefix+1;
+        }
+        h++;
+    }
+    return count;
+    }
+};
+
+//{ Driver Code Starts.
+
+
+int main()
+{
+    int t; cin >> t;
+    while (t--)
+	{
+		string s; cin >> s;
+		int k; cin >> k;
+		Solution ob;
+		cout <<ob.substrCount (s, k) << endl;
+	}
+}
+// } Driver Code Ends
