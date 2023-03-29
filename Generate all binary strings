@@ -1,0 +1,46 @@
+//{ Driver Code Starts
+//Initial Template for C++
+#include<bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+//User function Template for C++
+
+class Solution{
+public:
+    void gen(string s,int n,bool one){
+        if(n==0){
+            cout<<s<<" ";
+            return;
+        }
+        gen(s+'0',n-1,true);
+        if(one){
+            gen(s+'1',n-1,false);
+        }
+    }
+    void generateBinaryStrings(int num){
+        //Write your code
+        gen("",num,true);
+    }
+};
+
+//{ Driver Code Starts.
+int main(){
+    int t = 1;
+    cin >> t;
+
+
+    while(t--){
+        //Input
+        int n; cin >> n;
+
+        Solution obj;
+        obj.generateBinaryStrings(n);
+        cout << endl;
+    }
+
+    return 0;
+}
+
+// } Driver Code Ends
