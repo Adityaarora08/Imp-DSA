@@ -1,0 +1,59 @@
+//{ Driver Code Starts
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+
+
+class Solution{
+	public:
+	vector<int>AllPrimeFactors(int N) {
+	    // Code here
+	    unordered_set<int> st;
+	    while(N%2==0){
+	        st.insert(2);
+	        N/=2;
+	    }
+	    while(N%3==0){
+	        st.insert(3);
+	        N/=3;
+	    }
+	    for(int i=5;i*i<=N;i+=6){
+	        while(N%i==0){
+	            st.insert(i);
+	            N/=i;
+	        }
+	        while(N%(i+2)==0){
+	            st.insert(i+2);
+	            N/=i+2;
+	        }
+	    }
+	    if(N>3){
+	        st.insert(N);
+	    }
+	    vector<int> ans;
+	    for(auto i:st)
+      ans.push_back(i);
+      sort(ans.begin(),ans.end());
+      return ans;
+	}
+};
+
+//{ Driver Code Starts.
+int main(){
+	int tc;
+	cin >> tc;
+	while(tc--){
+		long long int N;
+		cin >> N;
+		Solution ob;
+		vector<int>ans = ob.AllPrimeFactors(N);
+		for(auto i: ans)
+			cout << i <<" ";
+		cout <<"\n";
+	}  
+	return 0;
+}
+// } Driver Code Ends
