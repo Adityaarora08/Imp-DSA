@@ -1,0 +1,13 @@
+class Solution {
+  public:
+   int find(int num){
+       if(num%4==0)return num;
+       if(num%4==1)return 1;
+       if(num%4==2)return num+1;
+       if(num%4==3)return 0;
+   }
+    int findXOR(int l, int r) {
+        
+        return find(l-1)^find(r);
+    }
+};
