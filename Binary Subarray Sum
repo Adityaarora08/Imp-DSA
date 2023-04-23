@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        int count=0,currSum=0;
+        int l=0,h=0;
+        unordered_map<int,int> mp;
+        mp[0]=1;
+        while(h<nums.size()){
+            currSum+=nums[h];
+            count+=mp[currSum-goal];
+            mp[currSum]++;
+            // mp[currSum-goal]++;
+            h++;
+        }
+        return count;
+        // while(l<nums.size()){
+        //     h=l;
+        //     currSum=0;
+            // while(h<nums.size()){
+            //     currSum+=nums[h];
+            //     if(currSum>goal){
+            //         currSum-=nums[l];
+            //         l++;
+            //     }
+            //     if(currSum==goal){
+            //             count++;
+            //     }
+            //     h++;
+            // }
+        //     l++;
+        // }
+        return count;
+    }
+};
