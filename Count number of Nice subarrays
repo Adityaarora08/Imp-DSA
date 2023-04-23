@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int atmostK(vector<int>& nums,int k){
+        if(k<0)return 0;
+        int l=0,h=0;
+        int count=0,res=0;
+        while(h<nums.size()){
+            if(nums[h]%2!=0)count++;
+            while(count>k){
+                if(nums[l]%2!=0)count--;
+                l++;
+            }
+            res+=(h-l+1);
+            h++;
+        }
+        return res;
+    }
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        return atmostK(nums,k)-atmostK(nums,k-1);
+        
+    }
+};
