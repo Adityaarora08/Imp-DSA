@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        // unordered_map<int,int> occur;
+        vector<int> occur(3,0);
+        int count=0,l=0,h=0;
+        while(h<s.length()){
+            occur[s[h]-'a']++;
+            while(occur[0]>0 && occur[1]>0 && occur[2]>0){
+                occur[s[l]-'a']--;
+                l++;
+                count+=s.length()-h;
+            }
+            h++;
+        }
+        return count;
+    }
+};
