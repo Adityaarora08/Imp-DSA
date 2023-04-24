@@ -1,0 +1,27 @@
+class Solution {
+public:
+    // int maxx(vector<int> &cards,int k, int currSum,int start,int end,vector<vector<int>>& dp){
+    //     if(k==0 || start>end){
+    //         return currSum;
+    //     }
+    //     if(dp[start][k]!=-1)return dp[start][k];
+    //     return dp[start][k]=max(maxx(cards,k-1,currSum+cards[end],start,end-1,dp),maxx(cards,k-1,currSum+cards[start],start+1,end,dp));
+    // }
+    int maxScore(vector<int>& c, int k) {
+      int start=k-1,end=c.size()-1;
+      int maxi=0;
+      int currSum=0;
+      for(int i=0;i<k;i++)currSum+=c[i];
+      maxi=currSum;
+      while(start>=0){
+        currSum-=c[start];
+        start--;
+        currSum+=c[end];
+        end--;
+        maxi=max(maxi,currSum);
+      }
+      return maxi;
+        // vector<vector<int>> dp(cardPoints.size()+1, vector<int>(k+1,-1));
+        // return maxx(cardPoints,k,0,0,cardPoints.size()-1,dp);
+    }
+};
