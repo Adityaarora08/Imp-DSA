@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        if(s.length()<t.length())return "";
+        // unordered_map<char,int> mp;
+        vector<int> mp(128,0);
+        for(int i=0;i<t.length();i++)mp[t[i]]++;
+        int l=0,h=0,start=0,mini=INT_MAX,sizee=0;
+        while(h<s.length()){
+            if(mp[s[h]]>0)sizee++;
+            mp[s[h]]--;
+            if(sizee==t.length()){
+                while( mp[s[l]]<0){
+                    mp[s[l]]++;
+                    l++;
+                }
+                if(mini>(h-l+1)){
+                    mini=h-l+1;
+                    start=l;
+                }
+            }
+            h++;
+        }
+        return mini==INT_MAX?"":s.substr(start,mini);
+    }
+};
