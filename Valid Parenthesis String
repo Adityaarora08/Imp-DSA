@@ -1,0 +1,56 @@
+class Solution {
+public:
+    // bool check(int idx,string s,int open,vector<vector<int>> &dp){
+    //     if(idx==s.length() && open==0)return true;
+    //     if(idx==s.length() && open!=0)return false;
+    //     bool ans=false;
+    //     if(dp[idx][open]!=-1)return dp[idx][open];
+    //     if(s[idx]=='*'){
+    //         ans|=check(idx+1,s,open,dp);
+    //         ans|=check(idx+1,s,open+1,dp);
+    //         if(open)
+    //         ans|= check(idx+1,s,open-1,dp);
+    //     }
+    //     else if(s[idx]=='('){
+    //         ans|=check(idx+1,s,open+1,dp);
+    //     }else{
+    //         if(open){
+    //             ans|=check(idx+1,s,open-1,dp);
+    //         }
+    //         else return dp[idx][open]=false;
+    //     }
+    //     return dp[idx][open]=ans;
+    // }
+    bool checkValidString(string s) {
+        // vector<vector<int>> dp(s.length(),vector<int>(s.length(),-1));
+        // return check(0,s,0,dp);
+        int left=0,right=0,star=0;
+        for(int i=0;i<s.length();i++){
+            if(s[i]=='('){
+                left++;
+            }else if(s[i]==')'){
+                right++;
+            }else{
+                star++;
+            }
+            if(left+star<right){
+                return false;
+            }
+        }
+        bool f1=(left+star>=right);
+        left=0,right=0,star=0;
+        for(int i=s.length()-1;i>=0;i--){
+            if(s[i]=='('){
+                left++;
+            }else if(s[i]==')'){
+                right++;
+            }else{
+                star++;
+            }
+            if(left>right+star){
+                return false;
+            }
+        }
+        return f1|(right+star>=left);
+    }
+};
