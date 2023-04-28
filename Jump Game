@@ -1,33 +1,35 @@
 class Solution {
 public:
-    bool jump(int i,vector<int>&nums,vector<int> &dp){
-        if(i==nums.size()-1){
-            return true;
-        }
-        if(i>=nums.size())return false;
-        if(dp[i]!=-1)return dp[i];
-        if(nums[i]==0)return dp[i]=0;
+bool check(vector<int>& nums,int idx,vector<int> &dp){
+    if(idx>=nums.size()-1)return true;
+        if(nums[idx]==0)return false;
+        if(dp[idx]!=-1)return dp[idx];
         bool ans=false;
-        for(int k=1;k<=nums[i];k++){
-            ans|=jump(i+k,nums,dp);
+        for(int i=1;i<=nums[idx];i++){
+            ans|=check(nums,idx+i,dp);
         }
-        return dp[i]=ans;
-    }
+        return dp[idx]=ans;
+}
     bool canJump(vector<int>& nums) {
-        if(nums.size()==1)return true;
-        int maxi=0;
-        vector<int> dp(nums.size()+1,-1);
-        return jump(0,nums,dp);
+        //optimised
+        int maxi=nums[0];
+        for(int i=1;i<nums.size();i++){
+            if(i>maxi)return false;
+            maxi=max(maxi,i+nums[i]);
+        }
+        return true;
+        // vector<int> dp(nums.size(),-1);
+        // return check(nums,0,dp);
+        //tabulation
+        // vector<bool> dp(nums.size());
         // dp[nums.size()-1]=true;
         // for(int i=nums.size()-2;i>=0;i--){
-        //     if(nums[i]==0){
-        //         dp[i]=0;
-        //     }
+        //     bool ans=false;
+        //     if(nums[i]==0)dp[i]=false;
         //     else{
-        //         bool ans=0;
-        //         for(int j=1;j<=nums[i] && (i+j)<nums.size();j++){
-        //             ans=ans|dp[i+j];
-        //             if(ans) break;
+        //         for(int j=1;(i+j)<nums.size() && j<=nums[i];j++){
+        //         ans|=dp[i+j];
+        //         if(ans)break;
         //         }
         //         dp[i]=ans;
         //     }
