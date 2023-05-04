@@ -1,0 +1,42 @@
+1. Activity Selection
+N-meetings in a room types-
+int activitySelection(vector<int> start, vector<int> end, int n)
+    {
+        // Your code here
+        vector<pair<int,int>> arr;
+        for(int i=0;i<n;i++){
+            arr.push_back({end[i],start[i]});
+        }
+        sort(arr.begin(),arr.end());
+        int endd=arr[0].first,count=1;
+        for(int i=0;i<n;i++){
+            if(arr[i].second>endd){
+                count++;
+                endd=max(endd,arr[i].first);
+            }
+        }
+        return count;
+        }
+ 2. Job Scheduling
+ static bool comparator(Job a,Job b){
+        return a.profit>b.profit;
+    }
+    vector<int> JobScheduling(Job arr[], int n) 
+    { 
+        // your code here
+        vector<int> ans(2,0);
+        sort(arr,arr+n,comparator);
+        vector<bool> deadd(n,false);
+        for(int i=0;i<n;i++){
+            int j=arr[i].dead-1;
+            while(j>=0&&deadd[j])j--;
+            if(j<0){
+                continue;
+            }else{
+                ans[0]++;
+                ans[1]+=arr[i].profit;
+                deadd[j]=true;
+            }
+        }
+        return ans;
+    } 
