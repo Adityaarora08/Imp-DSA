@@ -40,3 +40,70 @@ int activitySelection(vector<int> start, vector<int> end, int n)
         }
         return ans;
     } 
+3. Factional Knapsack - put items with highest weight to value ratio first in bag
+4. Choose and Swap
+string chooseandswap(string a){
+        set<char> st;
+        for(int i=0;i<a.length();i++){
+            st.insert(a[i]);
+        }
+        for(int i=0;i<a.length();i++){
+            st.erase(a[i]);
+            if(st.empty())break;
+            char curr=*st.begin();
+            if(a[i]>curr){
+                char x=a[i];
+                for(int j=0;j<a.length();j++){
+                    if(a[j]==x){
+                        a[j]=curr;
+                    }else if(a[j]==curr){
+                        a[j]=x;
+                    }
+                }
+                break;
+            }
+        }
+        return a;
+    }
+ 5. Minimum Platforms
+ int findPlatform(int arr[], int dep[], int n)
+    {
+    	sort(arr,arr+n);sort(dep,dep+n);
+    	int count=0,maxi=0;
+    	int i=0,j=0;
+    	while(i<n){
+    	    if(arr[i]<=dep[j]){
+    	        i++;
+    	        count++;
+    	    }else{
+    	        j++;
+    	        count--;
+    	    }
+    	    maxi=max(maxi,count);
+    	}
+    	return maxi;
+    }
+  6. Buy maximum stocks
+  int buyMaximumProducts(int n, int k, int price[]){
+        vector<pair<int,int>> stocks;
+        for(int i=0;i<n;i++){
+            stocks.push_back({price[i],i+1});
+        }
+        sort(stocks.begin(),stocks.end());
+        int i=0;
+        int count=0;
+        while(i<stocks.size() && k>0){
+            if(k<stocks[i].first)break;
+            if(stocks[i].first<=0)break;
+            int num=k/(stocks[i].first);
+            if(num<stocks[i].second){
+                k-=(stocks[i].first)*num;
+                count+=num;
+            }else{
+                k-=(stocks[i].first)*(stocks[i].second);
+                count+=stocks[i].second;
+            }
+            i++;
+        }
+        return count;
+    }
