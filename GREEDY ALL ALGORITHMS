@@ -107,3 +107,36 @@ string chooseandswap(string a){
         }
         return count;
     }
+   7. Minimum Cost to cut a board into squares
+   static bool comparator(int a,int b){
+        return a>b;
+    }
+    int minimumCostOfBreaking(vector<int> X, vector<int> Y, int m, int n){
+        //Write your code here
+        sort(X.begin(),X.end(),comparator);
+        sort(Y.begin(),Y.end(),comparator);
+        int hCount=1,vCount=1;
+        int cost=0;
+        int i=0,j=0;
+        while(i<X.size() && j<Y.size()){
+            if(X[i]>Y[j]){
+                cost+=X[i]*vCount;
+                hCount++;
+                i++;
+            }else{
+                cost+=Y[j]*hCount;
+                vCount++;
+                j++;
+            }
+        }
+        while(i<X.size()){
+            cost+=X[i]*vCount;
+            i++;
+        }
+         while(j<Y.size()){
+            cost+=Y[j]*hCount;
+            j++;
+        }
+        return cost;
+        
+    }
