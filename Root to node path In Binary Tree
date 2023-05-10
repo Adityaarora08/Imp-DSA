@@ -1,0 +1,16 @@
+bool path(TreeNode* root,vector<int> &ds,int B){
+    if(root==NULL)return false;
+    ds.push_back(root->val);
+    if(root->val==B)return true;
+    if(path(root->right,ds,B)||path(root->left,ds,B))return true;
+    ds.pop_back();
+    return false;
+    
+}
+vector<int> Solution::solve(TreeNode* A, int B) {
+    vector<int> p;
+    bool ans = path(A,p,B);
+    
+    return p;
+    
+}
