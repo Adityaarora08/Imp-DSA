@@ -1,0 +1,17 @@
+class Solution {
+public:
+    TreeNode* kth(TreeNode* root,int &k){
+         if(root==NULL){
+            return NULL;
+        }
+        TreeNode* left=kth(root->left,k);
+        if(left)return left;
+        k--;
+        if(k==0)return root;
+        return kth(root->right,k);
+    }
+    int kthSmallest(TreeNode* root, int k) {
+       TreeNode* node= kth(root, k);
+        return node->val;
+    }
+};
