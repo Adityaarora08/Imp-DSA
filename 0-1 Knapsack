@@ -14,7 +14,7 @@ int f(int i,int target,vector<int> &weight, vector<int> &value,vector<vector<int
 /*
 int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
 {
-	// Write your code here
+	// Write your code heree
 	vector<vector<int>> dp(n,vector<int>(maxWeight+1,0));
 	// return f(n-1,maxWeight,weight,value,dp);
 	for(int i=weight[0];i<=maxWeight;i++)dp[0][i]=value[0];
