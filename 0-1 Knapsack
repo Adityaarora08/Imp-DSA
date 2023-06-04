@@ -28,7 +28,7 @@ int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight)
 	return dp[n-1][maxWeight];
 }
 */
-//Space optimizationnNN
+//Space optimizationn
 int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
 {
 	// Write your code here
